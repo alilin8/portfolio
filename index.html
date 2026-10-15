@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alicia Lin Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&family=Nunito:wght@400;600;700&display=swap">
+<!--
+  QUICK MAP (everything is in this one file)
+  1. COLORS: the tokens at the top of <style> (--bg, --ink, --accent, ...). Light is the first block, dusk (dark) is the two below it.
+  2. FONTS: swap the Google Fonts <link> above, then the font-family names in the CSS (search "Fraunces" and "Nunito").
+  3. CONTENT: each tab is a <section class="panel" data-title="..."> below. data-title is the tab's name. Add, remove, or reorder them freely.
+  4. PERSONAL BITS: greeting text, the piano notes, and the confetti colors are in the <script> at the bottom.
+-->
+<style>
+:root{
+  color-scheme:light;
+  --bg:#fcf4ff; --top:#cfe8ff; --ink:#4a3b73; --dim:#8479ad; --rule:rgba(74,59,115,.18); --hl:#ffe9a0; --accent:#7e5bd8; --p1:#e3d6ff; --p2:#cdeed3; --p3:#ffefb0; --p4:#cde8ff; --p5:#ffd3e6; --p6:#ffdcc2; --key:#fff; --keyon:#e3d9ff; --sun:#ffd95e;
+  --leaf:#a8d89b; --petal:#e9c3ee; --card:rgba(255,255,255,.72);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){color-scheme:dark;--bg:#4b4688;--top:#6f8fcb;--ink:#fff8e1;--dim:#dcd6f7;--rule:rgba(255,248,225,.28);--hl:#4f7a3f;--accent:#ffe27a;--key:#625ca3;--keyon:#8179c4;--sun:#fff3b8;--leaf:#4f7a3f;--card:rgba(255,255,255,.12);--p1:#6f62b8;--p2:#4f8a6a;--p3:#9a8a3c;--p4:#4f7fb8;--p5:#a85a82;--p6:#a8694a}
+}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#4b4688;--top:#6f8fcb;--ink:#fff8e1;--dim:#dcd6f7;--rule:rgba(255,248,225,.28);--hl:#4f7a3f;--accent:#ffe27a;--key:#625ca3;--keyon:#8179c4;--sun:#fff3b8;--leaf:#4f7a3f;--card:rgba(255,255,255,.12);--p1:#6f62b8;--p2:#4f8a6a;--p3:#9a8a3c;--p4:#4f7fb8;--p5:#a85a82;--p6:#a8694a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(var(--top),var(--bg) 520px) var(--bg);color:var(--ink);font:18px/1.65 Nunito,system-ui,sans-serif;transition:background .4s,color .4s}
+.page{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:56px 24px 72px}
+header{min-height:50vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:36px}
+.hello{color:var(--accent);font-weight:500;margin:0 0 10px}
+h1{font:500 clamp(52px,12vw,132px)/.98 Fraunces,Georgia,serif;letter-spacing:-.02em;margin:0 0 26px}
+h1,.lede,h2,.item h3{font-variation-settings:"SOFT" 100,"WONK" 1}
+.lede{font:400 clamp(22px,3vw,30px)/1.35 Fraunces,Georgia,serif;max-width:27em;margin:0}
+.sun{position:absolute;top:24px;right:24px;width:56px;height:56px;border-radius:50%;border:0;padding:0;background:var(--sun);box-shadow:0 0 0 10px color-mix(in srgb,var(--sun) 35%,transparent),0 0 40px color-mix(in srgb,var(--sun) 60%,transparent);cursor:pointer;transition:transform .6s cubic-bezier(.3,1.4,.5,1),background .4s}
+.sun:hover{transform:rotate(20deg) scale(1.08)}
+.sun.dusk{transform:translateY(16px) scale(.88)}
+.sun.dusk:hover{transform:translateY(16px) scale(.95)}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.tabs button{font:700 16px/1 Nunito,system-ui,sans-serif;color:var(--ink);background:color-mix(in srgb,var(--c) 60%,transparent);border:1.5px solid color-mix(in srgb,var(--ink) 30%,transparent);border-radius:999px;padding:11px 18px;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}
+.tabs button:hover{transform:translateY(-3px) rotate(-1.5deg)}
+.tabs button[aria-selected="true"]{background:var(--c);transform:translateY(-2px);box-shadow:0 4px 0 color-mix(in srgb,var(--ink) 28%,transparent)}
+.tabs button:nth-child(1){--c:var(--p1)}.tabs button:nth-child(2){--c:var(--p2)}.tabs button:nth-child(3){--c:var(--p3)}
+.tabs button:nth-child(4){--c:var(--p4)}.tabs button:nth-child(5){--c:var(--p5)}.tabs button:nth-child(6){--c:var(--p6)}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:26px;padding:30px 30px 34px;animation:grow .35s ease-out;backdrop-filter:blur(4px)}
+.panel[hidden]{display:none}
+@keyframes grow{from{opacity:0;transform:translateY(10px) scale(.985)}}
+h2{font:600 21px/1.4 Fraunces,Georgia,serif;margin:0 0 12px;color:var(--accent)}
+.gap{margin-top:28px}
+.item{margin:0 0 22px;transition:transform .2s}.item:hover{transform:translateX(5px)}.item:last-child{margin-bottom:0}
+.item h3{font:600 21px/1.3 Fraunces,Georgia,serif;margin:0}
+.meta{color:var(--dim);margin:0 0 4px;font-size:16px}
+.item p,.plain{margin:0 0 8px;max-width:36em}
+a{color:inherit;text-decoration:none;background:linear-gradient(var(--hl),var(--hl)) 0 90%/100% .22em no-repeat;transition:background-size .25s}
+a:hover{background-size:100% 100%}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.links{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:18px}
+.piano{display:flex;gap:6px;margin-top:14px}
+.piano button{width:36px;height:64px;background:var(--key);border:1px solid var(--rule);border-radius:4px 4px 10px 10px;cursor:pointer;transition:background .1s,transform .1s}
+.piano button:hover{background:var(--keyon)}.piano button.on{background:var(--keyon);transform:translateY(2px)}
+.cap{color:var(--dim);font-size:15px;margin-top:8px}
+.pianobox{padding:26px 0 8px;animation:grow .3s ease-out}.pianobox[hidden]{display:none}
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim);font-size:16px;padding-top:22px;margin-top:30px;border-top:1px solid var(--rule)}
+footer button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:700px){body{font-size:17px}.panel{padding:22px 20px 26px}.piano button{width:32px}}
+.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.fx{display:none}}
+</style>
+</head>
+<body>
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+<div class="page">
+  <button class="sun" id="sun" type="button" aria-label="Switch to dusk"></button>
+  <header>
+    <p class="hello" id="hello">Hey!</p>
+    <h1 id="name">Alicia Lin</h1>
+    <p class="lede">combining computer science and neuroscience through projects, research, and tools</p>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+
+  <section class="panel" data-title="Basic info">
+    <h2>Education</h2>
+    <div class="item"><h3>Henry Gunn High School and Stanford Online High School</h3><p class="meta">Concurrent enrollement</p><p>Relevant courses: Data Structures and Algorithms, Computer Systems, Analytical Physics, History and Philosophy of Science. </p></div>
+    <h2 class="gap">Experience</h2>
+    <div class="item"><h3>[Role], [Company or Lab]</h3><p class="meta">[Summer or Semester, Year]</p><p>Built [thing] that [result]. Used by [who].</p></div>
+    <div class="item"><h3>[Role], [Club, TA position, or research group]</h3><p class="meta">[Dates]</p><p>Led [project]; improved [metric] by [N%].</p></div>
+    <div class="item"><h3>Skills</h3><p>Python, Java, C, LaTex, sklearn</p></div>
+
+  </section>
+
+  <section class="panel" data-title="Projects">
+    <div class="item"><h3><a href="#">project-one</a></h3><p class="meta">Python, React</p><p>One sentence on what it does and why it's interesting.</p></div>
+    <div class="item"><h3><a href="#">project-two</a></h3><p class="meta">Go, Postgres</p><p>Another one-liner. Say what you built or learned.</p></div>
+  </section>
+
+  <section class="panel" data-title="Activities">
+    <p class="plain">Python, TypeScript, Java, and C. React and Node for the web, SQL for the rest. Git, Docker, and Linux every day.</p>
+  </section>
+  <section class="panel" data-title="Awards">
+    <div class="item"><h3>[Award or honor]</h3><p class="meta">[Year], [Organization]</p><p>One line on what it was for and why it mattered.</p></div>
+    <div class="item"><h3>[Scholarship, hackathon win, or publication]</h3><p class="meta">[Year], [Organization]</p><p>One line on the result or the impact.</p></div>
+  </section>
+
+  
+<!--
+   <section class="panel" data-title="hobbies and activities">
+    <p class="plain"></p>
+  </section>
+  -->
+
+  <div class="pianobox" id="pianobox" hidden><div class="piano" id="piano" role="group" aria-label="A tiny piano"></div><p class="cap">tap the keys or press a-k!</p></div>
+  <footer>    <div class="links"><a href="mailto:alicialin958@gmail.com">💌</a><a href="https://github.com/alilin8">github</a><a href="https://docs.google.com/document/d/1-s50YhnU_FLy361wEhheT_MpcAUuO9F9ndmYEt3urD8/edit?usp=sharing">resume</a></div>
+<span>handmade with love</span><button id="toggle-piano" type="button" aria-expanded="false" aria-controls="pianobox">🎵</button></footer>
+</div>
+<script>
+const root=document.documentElement,mq=matchMedia("(prefers-color-scheme:dark)");
+const isDark=()=>root.dataset.theme?root.dataset.theme==="dark":mq.matches;
+const sun=document.getElementById("sun");
+const label=()=>{sun.classList.toggle("dusk",isDark());root.dataset.mode=isDark()?"dusk":"day";sun.setAttribute("aria-label",isDark()?"Switch to daytime":"Switch to dusk")};
+sun.onclick=()=>{root.dataset.theme=isDark()?"light":"dark";label();confetti(sun)};label();
+const h=new Date().getHours();
+document.getElementById("hello").textContent=h<5?"still up? same":h<12?"rise and shine!!":h<18?"enjoy ur afternoon!":"is it nighttime already?";
+// tiny confetti on tab and sun clicks
+const cv=document.getElementById("fx"),cx=cv.getContext("2d"),calm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let P=[],raf=0;
+const fit=()=>{cv.width=innerWidth;cv.height=innerHeight};fit();addEventListener("resize",fit);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function tick(){cx.clearRect(0,0,cv.width,cv.height);
+  P=P.filter(p=>{p.life-=16;if(p.life<=0)return false;p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.a+=p.vr;
+    cx.globalAlpha=p.life/p.max;cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillRect(-p.r,-p.r/2,p.r*2,p.r);cx.restore();return true});
+  raf=P.length?requestAnimationFrame(tick):0}
+function confetti(el){if(calm)return;const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,pal=["#b9a4ff","#9fd3f5","#ffd95e","#a8d89b","#f3b6dd"];
+  for(let i=0;i<11;i++){const a=Math.random()*Math.PI*2,s=1.2+Math.random()*2;
+    P.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1.2,g:.09,a:Math.random()*6,vr:(Math.random()-.5)*.3,r:2+Math.random()*1.5,c:rnd(pal),life:900,max:900})}
+  if(!raf)raf=requestAnimationFrame(tick)}
+// tabs
+const panels=[...document.querySelectorAll(".panel")],tabs=document.getElementById("tabs");
+const tb=panels.map((p,i)=>{const b=document.createElement("button");b.type="button";b.id="t"+i;b.setAttribute("role","tab");b.textContent=p.dataset.title;
+  p.setAttribute("role","tabpanel");p.setAttribute("aria-labelledby",b.id);b.onclick=()=>{show(i);confetti(b)};tabs.appendChild(b);return b});
+function show(i,f){panels.forEach((p,j)=>{p.hidden=j!==i;tb[j].setAttribute("aria-selected",String(j===i));tb[j].tabIndex=j===i?0:-1});if(f)tb[i].focus()}
+tabs.addEventListener("keydown",e=>{const i=tb.indexOf(document.activeElement);if(i<0)return;
+  if(e.key==="ArrowRight")show((i+1)%tb.length,1);if(e.key==="ArrowLeft")show((i-1+tb.length)%tb.length,1)});
+show(0);
+// tiny piano (C major scale, C5 to C6)
+const notes=[523.25,587.33,659.25,698.46,783.99,880,987.77,1046.5],keys="asdfghjk";
+let ac;const piano=document.getElementById("piano"),pbox=document.getElementById("pianobox"),pt=document.getElementById("toggle-piano"),btns=[];
+pt.onclick=()=>{pbox.hidden=!pbox.hidden;pt.setAttribute("aria-expanded",String(!pbox.hidden));pt.textContent=pbox.hidden?"Play a few notes":"Hide the piano"};
+function play(i){
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;
+    o.type="triangle";o.frequency.value=notes[i];
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.2,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+1);
+    o.connect(g).connect(ac.destination);o.start(t);o.stop(t+1.05);}catch(e){}
+  btns[i].classList.add("on");setTimeout(()=>btns[i].classList.remove("on"),160);
+}
+notes.forEach((_,i)=>{const b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Note "+(i+1));b.onclick=()=>play(i);piano.appendChild(b);btns.push(b)});
+addEventListener("keydown",e=>{if(e.metaKey||e.ctrlKey||e.altKey||e.repeat)return;const i=keys.indexOf(e.key.toLowerCase());if(i>-1&&!pbox.hidden)play(i)});
+</script>
+</body>
+</html>
