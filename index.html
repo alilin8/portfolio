@@ -7,42 +7,34 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap">
 <style>
 :root {
-  color-scheme: light;
-  --bg: #8ebfc7;           /* ocean vibes */
-  --top: #e4eeec;          /* idk like a chill vibe on top? */
-  --ink: #293834;          /* Deep driftwood / wet sand charcoal */
-  --dim: #687a73;          /* Faded sea-slate ink */
-  --rule: #d3dfdb;         /* Soft wave-crest divider line */
-  --accent: #3b524c;       /* Deep sea-glass green */
-  --hl: #e1ede8;           /* Soft seafoam highlight tint */
-  --sun: #e5a954;          /* Warm morning sun */
-  --mono: "JetBrains Mono", monospace;
-  --serif: "Newsreader", "Cormorant Garamond", Georgia, serif;
+--bg: #fbf5e9; /* warm sand */
+--top: #d6eaee; /* morning sea fog */
+--ink: #35484d; /* tide-pool slate */
+--dim: #75898d;
+--rule: #d8e2de;
+--accent: #3d8a8c; /* sea glass */
+--hl: #cfe9e1; /* seafoam */
+--sun: #f4b04a;
+--poppy: #ec8434; /* California poppy, new */
+--mono: "JetBrains Mono", monospace;
+--serif: "Newsreader", "Cormorant Garamond", Georgia, serif;
+
 }
+
+
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #132417;         /* Deep midnight ocean floor */
-    --top: #1f2825;
-    --ink: #e2e8e5;        /* Sea-foam pale text */
-    --dim: #84948e;
-    --rule: #26332e;
-    --accent: #9abfb5;     /* Glowing coastal sea-glass */
-    --hl: #22302b;
-    --sun: #d4af37;
+    --bg: #3f6277;  --top: #6c7ea0;  --ink: #fff4e0;  --dim: #cfd9dc;
+--rule: rgba(255,244,224,.28);  --accent: #ffd98a;  --hl: #3c7d78;
+--sun: #ffe3a3;  --poppy: #ffb36b;
   }
 }
 :root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #161c1a;
-  --top: #1f2825;
-  --ink: #e2e8e5;
-  --dim: #84948e;
-  --rule: #26332e;
-  --accent: #9abfb5;
-  --hl: #22302b;
-  --sun: #d4af37;
+  --bg: #3f6277;  --top: #6c7ea0;  --ink: #fff4e0;  --dim: #cfd9dc;
+--rule: rgba(255,244,224,.28);  --accent: #ffd98a;  --hl: #3c7d78;
+--sun: #ffe3a3;  --poppy: #ffb36b;
 }
 
 body {
@@ -283,7 +275,7 @@ footer {
     <h2>Current Exploration</h2>
     <div class="entry">
       <div class="entry-title">Neural & Computational Systems</div>
-      <div class="entry-meta">Concurrent student @ Henry Gunn & Stanford OHS</div>
+      <div class="entry-meta">Concurrent student</div>
       <p>Investigating how computational models approximate biological neural processing. Balancing core computer science systems with analytical mechanics.</p>
     </div>
     <div class="entry">
